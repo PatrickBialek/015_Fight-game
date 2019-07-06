@@ -33,7 +33,19 @@
         <button @click.prevent="gameRuningHandler" class="button is-dark">Give up</button>
       </div>
     </div>
-    <div class="columns"></div>
+    <div class="columns">
+      <div class="column is-12 has-text-centered">
+        <h2 class="is-size-5">Action history:</h2>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div v-for="(action, index) in actions" class="game__log has-text-centered" :key="index">
+          <span class="game__character">{{ action.character }}</span>
+          <span class="game__attack">{{ action.attack }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,7 +57,8 @@ export default {
       gameIsRunning: false,
       playerEnegry: 100,
       enemyEnergy: 100,
-      result: ""
+      result: "",
+      actions: []
     };
   },
   methods: {
@@ -53,6 +66,7 @@ export default {
       this.gameIsRunning = !this.gameIsRunning;
       this.playerEnegry = 100;
       this.enemyEnergy = 100;
+      this.actions = [];
     },
     playerAttack(e) {
       const weapon = e.target.id;
@@ -73,6 +87,12 @@ export default {
       if (this.playerEnegry > 100) {
         this.playerEnegry = 100;
       }
+
+      this.actions.unshift({
+        character: "Player: ",
+        attack: `heal by ${heal}`
+      });
+
       this.enemyAttack();
     },
     enemyAttack() {
@@ -81,6 +101,11 @@ export default {
     },
     takeEnemyEnergy(damage) {
       this.enemyEnergy = this.enemyEnergy - damage;
+      this.actions.unshift({
+        character: "Player: ",
+        attack: `attack by ${damage}`
+      });
+
       if (this.enemyEnergy <= 0) {
         this.enemyEnergy = 0;
         this.result = "You won!";
@@ -91,6 +116,11 @@ export default {
     },
     takePlayerEnergy(damage) {
       this.playerEnegry = this.playerEnegry - damage;
+      this.actions.unshift({
+        character: "Enemy: ",
+        attack: `attack by ${damage}`
+      });
+
       if (this.playerEnegry <= 0) {
         this.playerEnegry = 0;
         this.result = "You Lose!";
@@ -102,6 +132,7 @@ export default {
       this.gameIsRunning = false;
       this.playerEnegry = 100;
       this.enemyEnergy = 100;
+      this.actions = [];
     }
   }
 };
@@ -111,7 +142,7 @@ export default {
   @import "bulma/css/bulma.css"
 
   .game
-    height: calc(100vh - 102px)
+    min-height: calc(100vh - 102px)
     padding: 50px 0
     &__live-bar-container
       border: 1px solid #DDDDDD
@@ -124,5 +155,9 @@ export default {
       &--player
         background-color: #00D1B2
       &--enemy
-        background-color: #FF3860 
+        background-color: #FF3860
+    &__log
+      padding: 5px 0
+    &__character
+      font-weight: bold 
 </style>
