@@ -45,4 +45,6 @@ time, mark, audio, video
 *
   box-sizing: border-box
 
+#app
+  overflow: hidden
 </style>

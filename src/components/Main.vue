@@ -143,7 +143,7 @@ export default {
 
   .game
     min-height: calc(100vh - 102px)
-    padding: 50px 0
+    padding: 50px 20px
     &__live-bar-container
       border: 1px solid #DDDDDD
       margin-top: 10px
