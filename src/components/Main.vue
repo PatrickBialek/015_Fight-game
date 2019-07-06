@@ -4,13 +4,19 @@
       <div class="column is-6">
         <h2>Player:</h2>
         <div class="game__live-bar-container">
-          <div class="game__live-bar game__live-bar--player has-text-centered">{{ playerEnegry }}</div>
+          <div
+            class="game__live-bar game__live-bar--player has-text-centered"
+            :style="{width: playerEnegry + '%'}"
+          >{{ playerEnegry }}</div>
         </div>
       </div>
       <div class="column is-6">
         <h2>Enemy:</h2>
         <div class="game__live-bar-container">
-          <div class="game__live-bar game__live-bar--enemy has-text-centered">{{ enemyEnergy }}</div>
+          <div
+            class="game__live-bar game__live-bar--enemy has-text-centered"
+            :style="{width: enemyEnergy + '%'}"
+          >{{ enemyEnergy }}</div>
         </div>
       </div>
     </div>
@@ -114,7 +120,7 @@ export default {
     &__live-bar
       padding: 10px
       display: flex
-      transition: width
+      transition: width .1s ease
       &--player
         background-color: #00D1B2
       &--enemy
