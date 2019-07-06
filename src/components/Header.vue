@@ -12,8 +12,7 @@
 
 <script>
 export default {
-  name: "Header",
-  data() {}
+  name: "Header"
 };
 </script>
 
